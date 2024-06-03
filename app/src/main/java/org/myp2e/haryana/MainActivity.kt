@@ -5,12 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.google.accompanist.insets.ProvideWindowInsets
+import com.google.accompanist.insets.navigationBarsPadding
+import com.google.accompanist.insets.statusBarsPadding
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 import org.myp2e.haryana.ui.theme.HaryanaP2ETheme
@@ -21,7 +23,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HaryanaP2ETheme {
-                WebViewScreen("https://haryana.myp2e.org")
+                ProvideWindowInsets {
+                    Surface(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .statusBarsPadding()
+                            .navigationBarsPadding(),
+                        color = MaterialTheme.colorScheme.background
+                    ) {
+                        WebViewScreen("https://haryana.myp2e.org")
+                    }
+                }
             }
         }
     }
@@ -35,7 +47,7 @@ fun WebViewScreen(url: String) {
         state = state,
         modifier = Modifier.fillMaxSize(),
         onCreated = { webView ->
-            webView.settings.javaScriptEnabled = true;
+            webView.settings.javaScriptEnabled = true
             webView.settings.domStorageEnabled = true
         }
     )
