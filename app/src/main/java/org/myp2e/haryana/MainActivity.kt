@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             HaryanaP2ETheme {
-                WebViewScreen("https://haryana.myp2e.org/home/defaultsignin?whr=uri%3aB2C&referrer=basedomain&domain_hint=haryana.myp2e.org")
+                WebViewScreen("https://haryana.myp2e.org")
             }
         }
     }
@@ -35,7 +35,8 @@ fun WebViewScreen(url: String) {
         state = state,
         modifier = Modifier.fillMaxSize(),
         onCreated = { webView ->
-            webView.settings.javaScriptEnabled = true
+            webView.settings.javaScriptEnabled = true;
+            webView.settings.domStorageEnabled = true
         }
     )
 }
